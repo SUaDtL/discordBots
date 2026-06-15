@@ -20,6 +20,7 @@ These are the steps to take the bot live — they require your bot token and a l
 performed by you (the operator), not by the build.
 
 ### 1. Create the bot application
+
 1. In the [Discord Developer Portal](https://discord.com/developers/applications), create an
    application (or reuse one). Note its **Application ID**.
 2. Under **Bot**, create a bot and copy its **token**.
@@ -28,32 +29,39 @@ performed by you (the operator), not by the build.
    Server Members.
 
 ### 2. Invite the bot to the server
+
 Invite it to Dot_E's Server with the `bot` and `applications.commands` scopes, and these channel
 permissions on **`#table-talk`**: **View Channel**, **Send Messages**, **Embed Links**. (The
 `@Players` ping works via `allowed_mentions` and does not need Mention Everyone or a mentionable role.)
 The `@Players` role and `#table-talk` channel must exist in the guild.
 
 ### 3. Provide secrets via environment (never commit these)
-| Variable | Value |
-|---|---|
-| `DISCORD_TOKEN_DUNGEON_HERALD` | the bot token from step 1 |
-| `DISCORD_APPLICATION_ID` | the Application ID from step 1 |
+
+| Variable                       | Value                          |
+| ------------------------------ | ------------------------------ |
+| `DISCORD_TOKEN_DUNGEON_HERALD` | the bot token from step 1      |
+| `DISCORD_APPLICATION_ID`       | the Application ID from step 1 |
 
 The bot reads the token from `DISCORD_TOKEN_DUNGEON_HERALD` only; it is never logged or written to disk.
 
 ### 4. Build, register commands, run
+
 From the **repo root**:
+
 ```bash
 npm install
 npx tsc -b                                  # compile all workspaces to dist/
 npm run deploy-commands -w @discord-bots/dungeon-herald   # one-time, and after any command change (idempotent)
 npm start -w @discord-bots/dungeon-herald   # start the always-on bot process
 ```
+
 `deploy-commands` lists existing guild commands first and registers only what's missing, so it is safe
 to re-run.
 
 ### 5. Verify it works
+
 In Dot_E's Server:
+
 - `/roll 2d6+3` → two d6 + 3 and a correct total; `/roll 1d20 adv` keeps the higher of 2d20;
   `/roll 4d6kh3` drops the lowest die; `/roll 1000d1000` → a friendly cap message (no crash).
 - `/nextsession` → the soonest scheduled event, or "no sessions scheduled".
@@ -75,9 +83,11 @@ In Dot_E's Server:
   reminded again, even if rescheduled later; cancelled events simply never fire.
 
 ## Development
+
 ```bash
 npm test -w @discord-bots/dungeon-herald    # unit tests (mocked Discord; no live connection)
 npm run typecheck -w @discord-bots/dungeon-herald
 ```
+
 The bot imports the shared `@discord-bots/dice` (roll engine) and `@discord-bots/bot-core` (config,
 reminder store/scheduler, command registration) workspace packages.
