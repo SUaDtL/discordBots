@@ -1,0 +1,26 @@
+# Keep the build context small and force a clean in-image `npm ci` / `tsc -b`.
+# Anything the builder regenerates (node_modules, dist) is excluded so host
+# artifacts never leak into the image.
+
+node_modules
+**/node_modules
+dist
+**/dist
+*.tsbuildinfo
+**/*.tsbuildinfo
+coverage
+**/coverage
+
+.git
+.github
+.codearbiter
+
+# Runtime bot state — regenerated; never bake live data into the image.
+**/data/*.json
+
+# Secrets / env — never copy into the build context.
+.env
+.env.*
+
+# Docs — not needed at build time.
+*.md

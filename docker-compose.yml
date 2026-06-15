@@ -1,0 +1,34 @@
+# One service per bot (ADR-0003: one OS process per bot). Each service builds the
+# shared Dockerfile with its own BOT_SLUG, gets a stable image name, loads tokens
+# from .env, and mounts a named volume at its data/ dir so the durable reminder /
+# menu store survives restarts (resolves the ADR-0004 ephemeral-filesystem risk).
+
+services:
+  dungeon-herald:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BOT_SLUG: dungeon-herald
+    image: discordbots-dungeon-herald
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - dungeon-herald-data:/app/bots/dungeon-herald/data
+
+  arbiter-self-assign:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BOT_SLUG: arbiter-self-assign
+    image: discordbots-arbiter-self-assign
+    env_file: .env
+    restart: unless-stopped
+    volumes:
+      - arbiter-self-assign-data:/app/bots/arbiter-self-assign/data
+
+# Named volumes hold each bot's data/ (reminders.json / menu-location.json).
+volumes:
+  dungeon-herald-data:
+  arbiter-self-assign-data:
