@@ -6,7 +6,7 @@
 // The repo root is resolved relative to this file (tools/new-bot/dist/cli.js -> ../../..), so the
 // generator always writes into the workspace it ships inside, regardless of cwd.
 
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import { scaffoldBot } from './scaffold.js';
@@ -41,6 +41,7 @@ export function run(argv: string[]): number {
 }
 
 // Run only when invoked directly (node dist/cli.js), never on import.
-if (process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`) {
+// Use pathToFileURL so the guard is robust on Windows and to a relative argv (e.g. a container CMD).
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
   process.exitCode = run(process.argv.slice(2));
 }

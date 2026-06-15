@@ -5,6 +5,7 @@
 // something is missing). The testable core (`deployCommands`) takes an injected REST so tests never
 // hit Discord; `main()` is guarded so importing this file does NOT perform network calls.
 
+import { pathToFileURL } from 'node:url';
 import { REST } from 'discord.js';
 import { registerGuildCommands } from '@discord-bots/bot-core';
 import type { RegisterGuildCommandsResult } from '@discord-bots/bot-core';
@@ -49,7 +50,8 @@ async function main(): Promise<void> {
 }
 
 // Run only when invoked directly (node dist/deploy-commands.js), never on import (tests/index reuse).
-if (process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`) {
+// Use pathToFileURL so the guard is robust on Windows and to a relative argv (e.g. a container CMD).
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err: unknown) => {
     console.error('deploy-commands failed:', err instanceof Error ? err.message : 'unknown error');
     process.exitCode = 1;
