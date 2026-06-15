@@ -149,6 +149,7 @@ function renderIndexTs(slug: string): string {
 //   - \`client.login(...)\` runs only inside the guarded \`main()\`, never on import (keeps unit
 //     tests off the network).
 
+import { pathToFileURL } from 'node:url';
 import { Client, Events } from 'discord.js';
 import { ${camelVar(slug)}StaticConfig, load${pascal(slug)}Config } from './config.js';
 
@@ -176,7 +177,8 @@ async function main(): Promise<void> {
 }
 
 // Run only when invoked directly (node dist/index.js), never on import (keeps tests off the network).
-if (process.argv[1] !== undefined && import.meta.url === \`file://\${process.argv[1]}\`) {
+// Use pathToFileURL so the guard is robust on Windows and to a relative argv (e.g. a container CMD).
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err: unknown) => {
     console.error('${slug} failed to start:', err instanceof Error ? err.message : 'error');
     process.exitCode = 1;
