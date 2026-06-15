@@ -1,0 +1,24 @@
+{
+  "name": "@discord-bots/bot-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared scaffolding for Discord bots: config loader, reminded store, pure reminder scheduler, idempotent command registration.",
+  "license": "MIT",
+  "author": "Brennon Huff",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "discord.js": "^14.26.4"
+  }
+}
