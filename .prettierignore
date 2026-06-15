@@ -1,0 +1,14 @@
+# Dependencies & build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Governance / tooling state — not owned by this workspace's formatter
+.codearbiter/
+
+# Runtime bot state
+bots/*/data/
+
+# package metadata is managed by npm
+package-lock.json

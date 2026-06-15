@@ -1,0 +1,17 @@
+{
+  // Root build project (`tsc -b`). Extends the strict base. Uses an `include`
+  // glob rather than an empty `files: []` (which errors TS18002 in build mode).
+  // Currently matches no sources; per-package projects are added to `references`
+  // as they are scaffolded, at which point this becomes the solution root.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["scripts/**/*.ts"],
+  "references": [
+    { "path": "./packages/dice" },
+    { "path": "./packages/bot-core" },
+    { "path": "./bots/dungeon-herald" },
+    { "path": "./tools/new-bot" }
+  ]
+}

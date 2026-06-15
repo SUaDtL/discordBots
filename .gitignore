@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+coverage/
+
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# Runtime bot state (durable reminder store is regenerated; do not commit live data)
+bots/*/data/*.json
+
+# codeArbiter session/hook state
+.codearbiter/.decompose-draft/
+.codearbiter/.markers/
+
+# OS / editor
+.DS_Store
+Thumbs.db
