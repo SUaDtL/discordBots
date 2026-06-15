@@ -1,0 +1,21 @@
+{
+  "name": "@discord-bots/dungeon-herald",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dungeon Herald — in-server dice and session reminders for Dot's Dungeon (first chartered bot).",
+  "license": "MIT",
+  "author": "Brennon Huff",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "deploy-commands": "node dist/deploy-commands.js",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@discord-bots/bot-core": "*",
+    "@discord-bots/dice": "*",
+    "discord.js": "^14.26.4"
+  }
+}

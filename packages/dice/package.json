@@ -1,0 +1,21 @@
+{
+  "name": "@discord-bots/dice",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure, dependency-free TTRPG dice parser + unbiased evaluator (the trust crux).",
+  "license": "MIT",
+  "author": "Brennon Huff",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  }
+}
