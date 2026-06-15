@@ -1,0 +1,20 @@
+{
+  "name": "@discord-bots/arbiter-self-assign",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "arbiter-self-assign — self-serve cosmetic color + game-ping roles for arbiterGaming's #roles channel.",
+  "license": "MIT",
+  "author": "Brennon Huff",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "deploy-commands": "node dist/deploy-commands.js",
+    "test": "vitest run",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@discord-bots/bot-core": "*",
+    "discord.js": "^14.26.4"
+  }
+}

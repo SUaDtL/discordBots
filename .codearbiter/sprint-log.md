@@ -79,3 +79,28 @@ Started: 2026-06-14 · Branch: `sprint/dungeon-herald-mvp` · Spec/plan: `.codea
 
 ## SPRINT COMPLETE
 - 29/29 tasks ACCEPTED. 175 tests green. 4 reviewers PASS (0 CRITICAL/HIGH). Auto-decisions: D-01..D-04, all high-confidence/user-directed — zero low-confidence calls to review. Open items: 3 NEEDS-TRIAGE + 2 CONFIRM (all non-blocking, in open-questions.md / above).
+
+---
+
+# Sprint 2 — arbiter-self-assign (started 2026-06-15)
+Branch: `sprint/arbiter-self-assign` · spec/plan: `.codearbiter/{specs,plans}/arbiter-self-assign.md`
+User approved spec+plan at the Phase-1 gate ("Approve — run it"). UI decisions: select-menu colors
+(single-select) + toggle buttons for pings/GameNight. Roster: Helldivers + 3 placeholders (config).
+
+## D-05 — Hosting via Docker (resolves [CONFIRM-01] direction)
+- User: "can this be in a docker container for hosting? easier to see in docker desktop" (2026-06-15).
+- Decision: containerize as a DEDICATED follow-up PR after this bot lands — one image per bot
+  (ADR-0003 one-process-per-bot) + docker-compose for Docker Desktop + named volumes per bot `data/`
+  (also fixes the ephemeral-FS persistence risk for dungeon-herald's reminders.json). Not folded into
+  this sprint (cross-cutting; covers both bots). [CONFIRM-01] now leaning "self-host via Docker".
+- Strength: n/a (user-directed) · Confidence: high
+
+## ACCEPT — bot-core JsonValueStore (T-02) + arbiter-self-assign (T-01,T-03..T-12)
+- Fresh-verified: vitest bot 52/52, full suite 239/239, tsc -b exit 0, lint exit 0, format:check exit 0.
+- Intents exactly [Guilds, GuildMembers] (privileged GuildMembers required for role mutation; no MessageContent). Behavioral proof: catalog=12; isManagedRole Admin=false/Blue=true; forged roleByKey('ping-admin')=undefined.
+- Quality review (Phase 4): security-reviewer over the role-mutation/privileged-intent surface → PASS, 0 CRITICAL/HIGH. Make-or-break checks pass: only-12 boundary (ensure-roles iterates catalog; handlers resolve via trusted map) + custom-id forgery resistance (forged key → undefined → ephemeral reject) + admin gate on /post-role-menu + no-PII + env-only token.
+  - 2 LOW findings. #1 (role-editor mutation layer lacked a managed-set guard) — APPLIED: added isManagedRole guard in asMemberRoleEditor add/remove + 3 guard tests (defense-in-depth for AC-02). #2 (name-based identity not unique in Discord) — NOTED, non-blocking (single-tenant operator-controlled guild).
+- [NEEDS-TRIAGE: new-bot-convention] The generator + dungeon-herald use a Windows-fragile launch guard (`import.meta.url === file://${process.argv[1]}`) that silently no-ops on Windows (relative argv). Works on Linux/Docker (the hosting target). arbiter-self-assign uses the robust pathToFileURL idiom. FIX the generator + dungeon-herald guards in the Docker PR.
+- Added `.gitattributes` (eol=lf) to fix Windows-CRLF vs Linux-LF format:check inconsistency; `prettier --write .` normalized the tree.
+
+## SPRINT 2 landing — commits in progress

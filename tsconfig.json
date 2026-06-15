@@ -12,6 +12,7 @@
     { "path": "./packages/dice" },
     { "path": "./packages/bot-core" },
     { "path": "./bots/dungeon-herald" },
+    { "path": "./bots/arbiter-self-assign" },
     { "path": "./tools/new-bot" }
   ]
 }

@@ -1,0 +1,13 @@
+# Normalize line endings to LF for all text files, on every platform.
+# Without this, Windows checkouts get CRLF and fail `prettier --check`, while
+# Linux CI (LF) passes — a cross-platform inconsistency. LF is the source of truth.
+* text=auto eol=lf
+
+# Explicit binaries (never normalize).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
