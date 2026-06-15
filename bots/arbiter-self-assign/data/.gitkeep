@@ -1,0 +1,2 @@
+# Durable runtime data lives here (e.g. reminders.json — gitignored).
+# This file only keeps the directory present in git; it holds no data and no PII.
