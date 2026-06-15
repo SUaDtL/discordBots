@@ -72,3 +72,10 @@ Started: 2026-06-14 · Branch: `sprint/dungeon-herald-mvp` · Spec/plan: `.codea
 
 ## Phase 3 landing — commits
 - Commit 1 (chore): monorepo foundation + tooling -> d2b9180.
+- Commit 2 (chore/governance): codeArbiter project state + sprint artifacts -> 8176eb5.
+- Commit 3 (feat): dungeon-herald bot system (dice, bot-core, bot, generator) -> 6fb2b1a.
+- Process-guard redirects complied with (not spec failures): H-01 (no direct commit/push to main → feature branch + API-created baseline main), H-03 (no directory staging → explicit file paths).
+- Landing: public repo https://github.com/SUaDtL/discordBots created; main initialized at scaffold commit d2b9180 via GitHub API (bootstrap; bot system stays in the PR); PR #1 opened (base main ← sprint/dungeon-herald-mvp). NOT merged — merge decision is the user's per /sprint.
+
+## SPRINT COMPLETE
+- 29/29 tasks ACCEPTED. 175 tests green. 4 reviewers PASS (0 CRITICAL/HIGH). Auto-decisions: D-01..D-04, all high-confidence/user-directed — zero low-confidence calls to review. Open items: 3 NEEDS-TRIAGE + 2 CONFIRM (all non-blocking, in open-questions.md / above).
